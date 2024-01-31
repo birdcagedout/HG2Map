@@ -2,45 +2,105 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>지도 생성하기</title>
-    
+    <title>하계2동 밥집 지도</title>    
 </head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-</style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 <body>
-<!-- 지도를 표시할 div 영역입니다 -->
-<div id="map" style="width:100%;height:1000px;"></div>
+    <!-- 지도를 표시할 div 영역입니다 -->
+    <div id="map" style="width:100%;height:1000px;"></div>
 
-<!-- 카카오맵 javascript 키: https://developers.kakao.com/console/app/1029332/config/appKey -->
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5bc8a25699256d3e3125e2cfb77ef973"></script>
+    <!-- 카카오맵 javascript 키: https://developers.kakao.com/console/app/1029332/config/appKey -->
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5bc8a25699256d3e3125e2cfb77ef973"></script>
 
-<!-- 경도, 위도 찾기: https://www.findlatlng.org/ -->
-<script>
-var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
-var mapOption = { 
-    center: new kakao.maps.LatLng(37.63595, 127.068213), // 지도의 중심좌표 = 하계역
-    level: 3 // 지도의 확대 레벨
-};
+    <!-- 경도, 위도 찾기: https://www.findlatlng.org/ -->
+    <script>
+        var mapContainer = document.getElementById('map');          // 지도를 표시할 div 
+        var mapOption = { 
+            center: new kakao.maps.LatLng(37.63595, 127.068213),    // 지도의 중심좌표 = 하계역
+            level: 3                                                // 지도의 확대 레벨
+        };
 
-// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption); 
+        // 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-var mapTypeControl = new kakao.maps.MapTypeControl();
+        // 지도타입 (일반지도 / 스카이뷰)을 전환할 수 있는 컨트롤을 생성합니다
+        var mapTypeControl = new kakao.maps.MapTypeControl();
 
-// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+        // 지도에 컨트롤을 추가해야 지도위에 표시됩니다 (kakao.maps.ControlPosition.TOPRIGHT = 오른쪽 위)
+        map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-var zoomControl = new kakao.maps.ZoomControl();
-map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+        // 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
+        var zoomControl = new kakao.maps.ZoomControl();
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 
-</script>
+        // 위치정보 입력
+        hg2center = {
+            name: "하계2동주민센터",
+            addr: "공릉로55길 88",
+            affil: false,
+            lat: 37.6320043626454,
+            lon: 127.067956924438
+        };
+
+        headers = ['name', 'addr', 'affil', 'lat', 'lon'];
+
+        locations = [
+            [ "신가네칼국수",   "공릉로59나길 78-14",	true,	37.6356993000	,	127.0702356000	],
+            [ "신고집찜칼국수", "노원로15길 51-30",	    true,	37.6394798000	,	127.0701019000	],
+            [ "태능숯불갈비",   "한글비석로1길 37",	    true,	37.6393418000	,	127.0703782000	],
+            [ "역전우동",	    "공릉로65길 7",	        true,	37.6354917000	,	127.0706140000	],
+            [ "오이시",	        "공릉로59가길 29-1",	true,	37.6345728000	,	127.0707324000	],
+            [ "시골청국장",	    "동일로203가길 29",	    true,	37.6399359000	,	127.0642574000	],
+            [ "반찬카페",	    "공릉로58길 87",	    true,	37.6355937875	,	127.0731286576	],
+            [ "소문난순대국",	"공릉로58길 87",	    true,	37.6356281116	,	127.0730584860	],
+            [ "분식사",	        "공릉로59길 15",	    true,	37.6331962000	,	127.0710597000	],
+            [ "와플대학",	    "섬밭로 196",	        true,	37.6337036808	,	127.0686355233	],
+            [ "파리바게트",	    "공릉로59길 18",	    true,	37.6334649030	,	127.0709446759	],
+            [ "백소정",	        "동일로 1024",	        false,	37.6215941290	,	127.0746275783	],
+            [ "포앤반",	        "공릉로 322-3",     	false,	37.6357364390	,	127.0715001225	],
+            [ "매일파스타",	    "동일로203가길 29",	    false,	37.6399359000	,	127.0642574000	],
+            [ "장인닭갈비",	    "동일로204가길 12",	    false,	37.6399182000	,	127.0686084000	],
+            [ "하계국수",	    "섬밭로 209",	        false,	37.6354449000	,	127.0642439000	],
+            [ "맛깔식당",	    "한글비석로 56",        false,	37.6358447663	,	127.0686864853	],
+            [ "긴자료코",	    "노원로 248",           false,	37.6398509000	,	127.0739204000	],
+            [ "사이코우스시",	"덕릉로73길 18",	    false,	37.6520750764	,	127.0723128319	],
+            [ "이종구낙지세상",	"중계로 90 1층",	    false,	37.6438435539	,	127.0834654570	],
+            [ "메밀사랑묵사랑",	"동일로203가길 29",	    false,	37.6401392272	,	127.0641614656	],
+            [ "굴다리식당",	    "동일로198길 32 1층",	false,	37.6289954122	,	127.0733723044	],
+            [ "짬뽕필락",	    "공릉로70길 6 2층",	    false,	37.6391571674	,	127.0697982609	],
+            [ "버거투버거",	    "공릉로62가길 50 1층",	false,	37.6370076812	,	127.0747831464	],
+            [ "카페민",	        "동일로184길 6 1층",	false,	37.6234530165	,	127.0741957426	],
+            [ "아소코",	        "동일로184길 53 1층",	false,	37.6245831974	,	127.0765829086	],
+            [ "춘보만두",	    "섬밭로 56",	        false,	37.6218777451	,	127.0718179643	]
+        ];
+
+        point1 = {};
+        point1[headers[0]] = locations[0][0];
+        point1[headers[1]] = locations[0][1];
+        point1[headers[2]] = locations[0][2];
+        point1[headers[3]] = locations[0][3];
+        point1[headers[4]] = locations[0][4];
+
+
+        var iwContent = `<div style="disaplay:block; width:100%; padding:0px; text-align:center;">${point1.name}</div>`;   // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+        var iwPosition = new kakao.maps.LatLng(point1.lat, point1.lon);     //인포윈도우 표시 위치입니다
+        var iwRemoveable = false;                                           // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+        // 인포윈도우를 생성하고 지도에 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            map: map, // 인포윈도우가 표시될 지도
+            position : iwPosition, 
+            content : iwContent,
+            removable : iwRemoveable
+        });
+
+
+    </script>
 </body>
 </html>
