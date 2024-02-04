@@ -9,32 +9,73 @@
             margin: 0;
             padding: 0;
         }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .info-title-hg2 {
+            display: block;
+            background: #b226d5;
+            color: #fff;
+            text-align: center;
+            height: 24px;
+            line-height: 22px;
+            border-radius: 4px;
+            padding: 0px 5px;
+            opacity: 0.8;
+        }
+
+        .info-title-no-affil {
+            display: block;
+            background: #e03244;
+            color: #fff;
+            text-align: center;
+            height: 24px;
+            line-height: 22px;
+            border-radius: 4px;
+            padding: 0px 5px;
+            opacity: 0.8;
+        }
+
+        .info-title-affil {
+            display: block;
+            background: #323ee0;
+            color: #fff;
+            text-align: center;
+            height: 24px;
+            line-height: 22px;
+            border-radius: 4px;
+            padding: 0px 5px;
+            opacity: 0.8;
+        }
     </style>
 <body>
-    <!-- 지도를 표시할 div 영역입니다 -->
-    <div id="map" style="width:100%;height:1000px;"></div>
+    <!-- 지도를 표시할 div 영역. w=100%, h=100%를 사용하기 위해 부모인 html, body의 w, h를 css로 설정해주어야 한다. -->
+    <div id="map" style="width:100%; height:100%;"></div>
 
     <!-- 카카오맵 javascript 키: https://developers.kakao.com/console/app/1029332/config/appKey -->
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=5bc8a25699256d3e3125e2cfb77ef973"></script>
 
     <!-- 경도, 위도 찾기: https://www.findlatlng.org/ -->
     <script>
-        var mapContainer = document.getElementById('map');          // 지도를 표시할 div 
+
+        // 지도 요소 기본 세팅
+        var mapContainer = document.getElementById('map');                      // 지도를 표시할 div 
         var mapOption = { 
-            center: new kakao.maps.LatLng(37.63595, 127.068213),    // 지도의 중심좌표 = 하계역
-            level: 3                                                // 지도의 확대 레벨
+            center: new kakao.maps.LatLng(37.631071930318, 127.07036194318),    // 지도의 중심좌표 = 경춘선숲길 방문자센터
+            level: 3                                                            // 지도의 확대 레벨
         };
 
-        // 지도를 표시할 div와 지도 옵션으로 지도를 생성합니다
+        // 지도를 생성(parameter는 div요소, map옵션)
         var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-        // 지도타입 (일반지도 / 스카이뷰)을 전환할 수 있는 컨트롤을 생성합니다
+        // 지도 타입(일반지도/스카이뷰) 전환용 컨트롤 생성 + 지도에 붙임(kakao.maps.ControlPosition.TOPRIGHT = 오른쪽 위)
         var mapTypeControl = new kakao.maps.MapTypeControl();
-
-        // 지도에 컨트롤을 추가해야 지도위에 표시됩니다 (kakao.maps.ControlPosition.TOPRIGHT = 오른쪽 위)
         map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-        // 지도 확대 축소를 제어할 수 있는 줌 컨트롤을 생성합니다
+        // 지도 줌(확대/축소) 제어 컨트롤 생성 + 지도에 붙임
         var zoomControl = new kakao.maps.ZoomControl();
         map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
@@ -51,53 +92,98 @@
         headers = ['name', 'addr', 'affil', 'lat', 'lon'];
 
         locations = [
-            [ "신가네칼국수",   "공릉로59나길 78-14",	true,	37.6356993000	,	127.0702356000	],
-            [ "신고집찜칼국수", "노원로15길 51-30",	    true,	37.6394798000	,	127.0701019000	],
-            [ "태능숯불갈비",   "한글비석로1길 37",	    true,	37.6393418000	,	127.0703782000	],
-            [ "역전우동",	    "공릉로65길 7",	        true,	37.6354917000	,	127.0706140000	],
-            [ "오이시",	        "공릉로59가길 29-1",	true,	37.6345728000	,	127.0707324000	],
-            [ "시골청국장",	    "동일로203가길 29",	    true,	37.6399359000	,	127.0642574000	],
-            [ "반찬카페",	    "공릉로58길 87",	    true,	37.6355937875	,	127.0731286576	],
-            [ "소문난순대국",	"공릉로58길 87",	    true,	37.6356281116	,	127.0730584860	],
-            [ "분식사",	        "공릉로59길 15",	    true,	37.6331962000	,	127.0710597000	],
-            [ "와플대학",	    "섬밭로 196",	        true,	37.6337036808	,	127.0686355233	],
-            [ "파리바게트",	    "공릉로59길 18",	    true,	37.6334649030	,	127.0709446759	],
-            [ "백소정",	        "동일로 1024",	        false,	37.6215941290	,	127.0746275783	],
-            [ "포앤반",	        "공릉로 322-3",     	false,	37.6357364390	,	127.0715001225	],
-            [ "매일파스타",	    "동일로203가길 29",	    false,	37.6399359000	,	127.0642574000	],
-            [ "장인닭갈비",	    "동일로204가길 12",	    false,	37.6399182000	,	127.0686084000	],
-            [ "하계국수",	    "섬밭로 209",	        false,	37.6354449000	,	127.0642439000	],
-            [ "맛깔식당",	    "한글비석로 56",        false,	37.6358447663	,	127.0686864853	],
-            [ "긴자료코",	    "노원로 248",           false,	37.6398509000	,	127.0739204000	],
-            [ "사이코우스시",	"덕릉로73길 18",	    false,	37.6520750764	,	127.0723128319	],
-            [ "이종구낙지세상",	"중계로 90 1층",	    false,	37.6438435539	,	127.0834654570	],
-            [ "메밀사랑묵사랑",	"동일로203가길 29",	    false,	37.6401392272	,	127.0641614656	],
-            [ "굴다리식당",	    "동일로198길 32 1층",	false,	37.6289954122	,	127.0733723044	],
-            [ "짬뽕필락",	    "공릉로70길 6 2층",	    false,	37.6391571674	,	127.0697982609	],
-            [ "버거투버거",	    "공릉로62가길 50 1층",	false,	37.6370076812	,	127.0747831464	],
-            [ "카페민",	        "동일로184길 6 1층",	false,	37.6234530165	,	127.0741957426	],
-            [ "아소코",	        "동일로184길 53 1층",	false,	37.6245831974	,	127.0765829086	],
-            [ "춘보만두",	    "섬밭로 56",	        false,	37.6218777451	,	127.0718179643	]
+            [ "신가네칼국수",   "공릉로59나길 78-14",	true,	37.6356993000,	127.0702356000	],      // 0
+            [ "신고집찜칼국수", "노원로15길 51-30",	    true,	37.6394798000,	127.0701019000	],      // 1
+            [ "태능숯불갈비",   "한글비석로1길 37",	    true,	37.6393418000,	127.0703782000	],      // 2
+            [ "역전우동",	    "공릉로65길 7",	        true,	37.6354917000,	127.0706140000	],      // 3
+            [ "오이시",	        "공릉로59가길 29-1",	true,	37.6345728000,	127.0707324000	],      // 4
+            [ "시골청국장",	    "동일로203가길 29",	    true,	37.6397461057,	127.0643332690	],      // 5
+            [ "소문난순대국",	"공릉로58길 87",	    true,	37.6356841467,	127.0729954472	],      // 6
+            [ "반찬카페",	    "공릉로58길 87",	    true,	37.6355284524,	127.0730598201	],      // 7 
+            [ "분식사",	        "공릉로59길 15",	    true,	37.6331962000,	127.0710597000	],      // 8
+            [ "와플대학",	    "섬밭로 196",	        true,	37.6337036808,	127.0686355233	],      // 9
+            [ "파리바게트",	    "공릉로59길 18",	    true,	37.6334649030,	127.0709446759	],      // 10
+            [ "백소정",	        "동일로 1024",	        false,	37.6215941290,	127.0746275783	],      // 11
+            [ "포앤반",	        "공릉로 322-3",     	false,	37.6357364390,	127.0715001225	],      // 12
+            [ "매일파스타",	    "동일로203가길 29",	    false,	37.6394455660,	127.0644828570	],      // 13
+            [ "장인닭갈비",	    "동일로204가길 12",	    false,	37.6399182000,	127.0686084000	],      // 14
+            [ "하계국수",	    "섬밭로 209",	        false,	37.6354449000,	127.0642439000	],      // 15
+            [ "맛깔식당",	    "한글비석로 56",        false,	37.6358447663,	127.0686864853	],      // 16
+            [ "긴자료코",	    "노원로 248",           false,	37.6398509000,	127.0739204000	],      // 17
+            [ "사이코우스시",	"덕릉로73길 18",	    false,	37.6520750764,	127.0723128319	],      // 18
+            [ "이종구낙지세상",	"중계로 90 1층",	    false,	37.6438435539,	127.0834654570	],      // 19
+            [ "메밀사랑묵사랑",	"동일로203가길 29",	    false,	37.6401392272,	127.0641614656	],      // 20
+            [ "굴다리식당",	    "동일로198길 32",	    false,	37.6289954122,	127.0733723044	],      // 21
+            [ "짬뽕필락",	    "공릉로70길 6 2층",	    false,	37.6391571674,	127.0697982609	],      // 22
+            [ "버거투버거",	    "공릉로62가길 50",	    false,	37.6370076812,	127.0747831464	],      // 23
+            [ "카페민",	        "동일로184길 6",	    false,	37.6234530165,	127.0741957426	],      // 24
+            [ "아소코",	        "동일로184길 53",	    false,	37.6245831974,	127.0765829086	],      // 25
+            [ "춘보만두",	    "섬밭로 56",	        false,	37.6218798695,	127.0718085765	]       // 26
         ];
 
-        point1 = {};
-        point1[headers[0]] = locations[0][0];
-        point1[headers[1]] = locations[0][1];
-        point1[headers[2]] = locations[0][2];
-        point1[headers[3]] = locations[0][3];
-        point1[headers[4]] = locations[0][4];
+        // 모든 식당을 points 배열에 넣기(0~26)
+        var points_affil  = new Array();
+        var points_no_affil = new Array();
+
+        for (let i = 0; i < locations.length; i++) {
+            var point = new Object();
+            for (let j = 0; j < headers.length; j++) {
+                point[headers[j]] = locations[i][j];
+            }
+            if (point.affil === true) {
+                points_affil.push(point);
+            } else {
+                points_no_affil.push(point);
+            }
+        }
 
 
-        var iwContent = `<div style="disaplay:block; width:100%; padding:0px; text-align:center;">${point1.name}</div>`;   // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-        var iwPosition = new kakao.maps.LatLng(point1.lat, point1.lon);     //인포윈도우 표시 위치입니다
-        var iwRemoveable = false;                                           // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+        // 인포윈도우 생성 + 지도에 표시
 
-        // 인포윈도우를 생성하고 지도에 표시합니다
+        // 0) 하계2동주민센터
         var infowindow = new kakao.maps.InfoWindow({
-            map: map, // 인포윈도우가 표시될 지도
-            position : iwPosition, 
-            content : iwContent,
-            removable : iwRemoveable
+            map: map,                                                                       // 인포윈도우가 표시될 지도
+            position : new kakao.maps.LatLng(hg2center.lat, hg2center.lon),                 // 인포윈도우 표시 위치(경도, 위도)
+            content : `<span class="info-title-hg2">${hg2center.name}</span>`,              // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+            removable : false                                                               // 인포윈도우 닫기버튼
+        });
+
+
+        // 1) 식권 가능 식당
+        for (let i = 0; i < points_affil.length; i++) {
+            var infowindow = new kakao.maps.InfoWindow({
+                map: map,                                                                       // 인포윈도우가 표시될 지도
+                position : new kakao.maps.LatLng(points_affil[i].lat, points_affil[i].lon),     // 인포윈도우 표시 위치(경도, 위도)
+                content : `<span class="info-title-affil">${points_affil[i].name}</span>`,      // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+                removable : false                                                               // 인포윈도우 닫기버튼
+            });
+        }
+
+         // 2) 식권 불가 식당
+         for (let j = 0; j < points_no_affil.length; j++) {
+            var infowindow = new kakao.maps.InfoWindow({
+                map: map,                                                                           // 인포윈도우가 표시될 지도
+                position : new kakao.maps.LatLng(points_no_affil[j].lat, points_no_affil[j].lon),   // 인포윈도우 표시 위치(경도, 위도)
+                content : `<span class="info-title-no-affil">${points_no_affil[j].name}</span>`,    // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+                removable : false                                                                   // 인포윈도우 닫기버튼
+            });
+        }
+        
+
+
+
+        // 모든 지도 DATA를 표시한 이후에 infoWindow 스타일 강제 변경
+        var infoTitle = document.querySelectorAll('.info-title-affil, .info-title-no-affil, .info-title-hg2');
+        infoTitle.forEach(function(e) {
+            var w = e.offsetWidth;
+            var ml = w/2;
+            e.parentElement.style.top = "2px";
+            e.parentElement.style.left = "50%";
+            e.parentElement.style.marginLeft = -ml+"px";
+            e.parentElement.style.width = w+"px";
+            e.parentElement.previousSibling.style.display = "none";
+            e.parentElement.parentElement.style.border = "0px";
+            e.parentElement.parentElement.style.background = "unset";
         });
 
 
