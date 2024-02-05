@@ -175,9 +175,10 @@
         // 모든 지도 DATA를 표시한 이후에 infoWindow 스타일 강제 변경
         var infoTitle = document.querySelectorAll('.info-title-affil, .info-title-no-affil, .info-title-hg2');
         infoTitle.forEach(function(e) {
-            var w = e.offsetWidth + 20;
+            var w = e.offsetWidth + 10;
             var ml = w/2;
-            e.parentElement.style.top = "2px";
+            e.parentElement.style.top = "3px";
+            e.parentElement.style.bottom = "3px";
             e.parentElement.style.left = "50%";
             e.parentElement.style.marginLeft = -ml+"px";
             e.parentElement.style.width = w+"px";
