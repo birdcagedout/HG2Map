@@ -64,8 +64,8 @@
         // 지도 요소 기본 세팅
         var mapContainer = document.getElementById('map');                      // 지도를 표시할 div 
         var mapOption = { 
-            center: new kakao.maps.LatLng(37.6337771037, 127.06913951298588),   // 지도의 중심좌표 = 장미상가 앞
-            level: 3                                                            // 지도의 확대 레벨
+            center: new kakao.maps.LatLng(37.63584743273802, 127.06822872876832),   // 지도의 중심좌표 = 장미상가 앞
+            level: 2                                                            // 지도의 확대 레벨
         };
 
         // 지도를 생성(parameter는 div요소, map옵션)
@@ -175,7 +175,7 @@
         // 모든 지도 DATA를 표시한 이후에 infoWindow 스타일 강제 변경
         var infoTitle = document.querySelectorAll('.info-title-affil, .info-title-no-affil, .info-title-hg2');
         infoTitle.forEach(function(e) {
-            var w = e.offsetWidth;
+            var w = e.offsetWidth + 50;
             var ml = w/2;
             e.parentElement.style.top = "2px";
             e.parentElement.style.left = "50%";
