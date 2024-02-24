@@ -32,7 +32,7 @@
         }
 
         .info-title-no-affil {
-            background: #d92a3c;
+            background: #da165e;
         }
 
         .info-title-affil {
@@ -50,10 +50,10 @@
     <script>
 
         // 지도 요소 기본 세팅
-        var mapContainer = document.getElementById('map');                      // 지도를 표시할 div 
+        var mapContainer = document.getElementById('map');                          // 지도를 표시할 div 
         var mapOption = { 
             center: new kakao.maps.LatLng(37.63584743273802, 127.06822872876832),   // 지도의 중심좌표 = 장미상가 앞
-            level: 4                                                            // 지도의 확대 레벨
+            level: 4                                                                // 지도의 확대 레벨
         };
 
         // 지도를 생성(parameter는 div요소, map옵션)
@@ -130,20 +130,20 @@
 
         // 1) 하계2동주민센터
         var infowindow = new kakao.maps.InfoWindow({
-            map: map,                                                                       // 인포윈도우가 표시될 지도
-            position : new kakao.maps.LatLng(hg2center.lat, hg2center.lon),                 // 인포윈도우 표시 위치(경도, 위도)
-            content : `<span class=" info-title info-title-hg2">${hg2center.name}</span>`,              // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
-            removable : false                                                               // 인포윈도우 닫기버튼
+            map: map,                                                                                       // 인포윈도우가 표시될 지도
+            position : new kakao.maps.LatLng(hg2center.lat, hg2center.lon),                                 // 인포윈도우 표시 위치(경도, 위도)
+            content : `<span class=" info-title info-title-hg2">${hg2center.name}</span>`,                  // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+            removable : false                                                                               // 인포윈도우 닫기버튼
         });
 
 
         // 2) 식권 불가 식당
         for (let j = 0; j < points_no_affil.length; j++) {
             var infowindow = new kakao.maps.InfoWindow({
-                map: map,                                                                           // 인포윈도우가 표시될 지도
-                position : new kakao.maps.LatLng(points_no_affil[j].lat, points_no_affil[j].lon),   // 인포윈도우 표시 위치(경도, 위도)
-                content : `<span class="info-title info-title-no-affil">${points_no_affil[j].name}</span>`,    // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
-                removable : false                                                                   // 인포윈도우 닫기버튼
+                map: map,                                                                                   // 인포윈도우가 표시될 지도
+                position : new kakao.maps.LatLng(points_no_affil[j].lat, points_no_affil[j].lon),           // 인포윈도우 표시 위치(경도, 위도)
+                content : `<span class="info-title info-title-no-affil">${points_no_affil[j].name}</span>`, // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+                removable : false                                                                           // 인포윈도우 닫기버튼
             });
         }
 
@@ -151,10 +151,10 @@
         // 3) 식권 가능 식당
         for (let i = 0; i < points_affil.length; i++) {
             var infowindow = new kakao.maps.InfoWindow({
-                map: map,                                                                       // 인포윈도우가 표시될 지도
-                position : new kakao.maps.LatLng(points_affil[i].lat, points_affil[i].lon),     // 인포윈도우 표시 위치(경도, 위도)
-                content : `<span class="info-title info-title-affil">${points_affil[i].name}</span>`,      // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
-                removable : false                                                               // 인포윈도우 닫기버튼
+                map: map,                                                                                   // 인포윈도우가 표시될 지도
+                position : new kakao.maps.LatLng(points_affil[i].lat, points_affil[i].lon),                 // 인포윈도우 표시 위치(경도, 위도)
+                content : `<span class="info-title info-title-affil">${points_affil[i].name}</span>`,       // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+                removable : false                                                                           // 인포윈도우 닫기버튼
             });
         }
         
