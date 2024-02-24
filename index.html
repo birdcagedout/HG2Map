@@ -15,43 +15,28 @@
             height: 100%;
         }
 
-        .info-title-hg2 {
+        .info-title {
             display: block;
-            background: #b226d5;
             color: #fff;
             text-align: center;
-            font-size: 30px;
-            height: 30px;
-            line-height: 30px;
-            border-radius: 4px;
+            font-size: 35px;
+            height: 33px;
+            line-height: 35px;
+            border-radius: 5px;
             padding: 5px 5px;
             opacity: 0.8;
+        }
+
+        .info-title-hg2 {
+            background: #b226d5;
         }
 
         .info-title-no-affil {
-            display: block;
             background: #e03244;
-            color: #fff;
-            text-align: center;
-            font-size: 30px;
-            height: 30px;
-            line-height: 30px;
-            border-radius: 4px;
-            padding: 5px 5px;
-            opacity: 0.8;
         }
 
         .info-title-affil {
-            display: block;
             background: #323ee0;
-            color: #fff;
-            text-align: center;
-            font-size: 30px;
-            height: 30px;
-            line-height: 30px;
-            border-radius: 4px;
-            padding: 5px 5px;
-            opacity: 0.8;
         }
     </style>
 <body>
@@ -147,7 +132,7 @@
         var infowindow = new kakao.maps.InfoWindow({
             map: map,                                                                       // 인포윈도우가 표시될 지도
             position : new kakao.maps.LatLng(hg2center.lat, hg2center.lon),                 // 인포윈도우 표시 위치(경도, 위도)
-            content : `<span class="info-title-hg2">${hg2center.name}</span>`,              // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+            content : `<span class=" info-title info-title-hg2">${hg2center.name}</span>`,              // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
             removable : false                                                               // 인포윈도우 닫기버튼
         });
 
@@ -157,7 +142,7 @@
             var infowindow = new kakao.maps.InfoWindow({
                 map: map,                                                                       // 인포윈도우가 표시될 지도
                 position : new kakao.maps.LatLng(points_affil[i].lat, points_affil[i].lon),     // 인포윈도우 표시 위치(경도, 위도)
-                content : `<span class="info-title-affil">${points_affil[i].name}</span>`,      // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+                content : `<span class="info-title info-title-affil">${points_affil[i].name}</span>`,      // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
                 removable : false                                                               // 인포윈도우 닫기버튼
             });
         }
@@ -167,7 +152,7 @@
             var infowindow = new kakao.maps.InfoWindow({
                 map: map,                                                                           // 인포윈도우가 표시될 지도
                 position : new kakao.maps.LatLng(points_no_affil[j].lat, points_no_affil[j].lon),   // 인포윈도우 표시 위치(경도, 위도)
-                content : `<span class="info-title-no-affil">${points_no_affil[j].name}</span>`,    // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
+                content : `<span class="info-title info-title-no-affil">${points_no_affil[j].name}</span>`,    // 인포윈도우에 표출될 말풍선(HTML 문자열, document element 가능)
                 removable : false                                                                   // 인포윈도우 닫기버튼
             });
         }
